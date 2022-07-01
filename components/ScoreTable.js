@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import Score from './Score'
 
 const dataSource = {
@@ -12,7 +12,7 @@ const dataSource = {
             "salmon":0,
             "hawk":0,
             "fox":0,
-            "animalTotal":0
+            "animalTotal":0,
         },
         {
             "key": 1,
@@ -53,7 +53,6 @@ const ScoreTable = () => {
     const [scores, setScores] = useState(dataSource.scores);
 
     const refreshScore = (score) => {
-        console.log("refreshScore input" + score)
         let scoresAux = [...scores];
         let scoreKeys = scores.map(s => s.key);
         let scoreIndex = scoreKeys.indexOf(score.key);
@@ -64,21 +63,36 @@ const ScoreTable = () => {
             elk: parseInt(score.elk), 
             salmon: parseInt(score.salmon),
             hawk: parseInt(score.hawk), 
-            fox: parseInt(score.fox)
-            };
+            fox: parseInt(score.fox)};
         setScores(calculateAnimalScore(scoresAux));
-        console.log("refreshScore output" + scoresAux)
-
     };
 
-    const calculateAnimalScore = (scores) => {
-        return scores.forEach(s => {
-            s.animalTotal = s.bear + s.elk + s.salmon + s.hawk + s.fox;
-        });
+    const calculateScore = (score) => {
+        calculateAnimalScore(score)
+        calculateLandScore(score)
     }
+
+    const calculateAnimalScore = (score) => {
+        score.forEach(s => {
+            s.animalTotal = s.bear + s.elk + s.salmon + s.hawk + s.fox;
+        })
+        return score;
+    }
+
+    const calculateLandScore = (score) => {
+        return score;
+    }
+
 
     return(
         <View style={styles.row}>
+            <View style={styles.iconColumn}>
+                <Image style={styles.icon} source={require('../assets/icons/bear-icon.png')}/>
+                <Image style={styles.icon} source={require('../assets/icons/elk-icon.png')}/>
+                <Image style={styles.icon} source={require('../assets/icons/salmon-icon.png')}/>
+                <Image style={styles.icon} source={require('../assets/icons/hawk-icon.png')}/>
+                <Image style={styles.icon} source={require('../assets/icons/fox-icon.png')}/>
+            </View>
             <Score score={scores[0]} refreshScore={refreshScore}/>
             <Score score={scores[1]} refreshScore={refreshScore}/>
             <Score score={scores[2]} refreshScore={refreshScore}/>
@@ -91,8 +105,18 @@ const styles = StyleSheet.create(
     {
         row: {
             flexDirection: 'row',
-        }
-
+            justifyContent: "space-evenly"
+        },
+        iconColumn: {
+            width: 50,
+            paddingTop: 50,
+            alignSelf: 'flex-start'
+        },
+        icon: {
+            width: 50,
+            height: 50,
+            resizeMode: 'contain'
+        },
     }
 )
 
