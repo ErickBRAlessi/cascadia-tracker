@@ -1,21 +1,30 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import ScoreTable from '../components/ScoreTable';
+import { ImageBackground, Text, ScrollView, StyleSheet, SafeAreaView, Button } from 'react-native';
+import backgroundImage from '../assets/background-mobile.png'
+import { saveProfile, getAllProfiles, getProfileByKey, removeProfileByKey  } from '../components/ProfileService';
 
-const MenuScreen = ({ navigation }) => {
+const MenuScreen = ({ navigation, route }) => {
     return(
-        <View style={styles.container}>
-            <ScoreTable/>
-        </View>
+        <ScrollView style={styles.container} >
+            <ImageBackground source={backgroundImage}  style={styles.image}>
+                <Button title="Profiles" onPress={() => navigation.navigate('Profiles')}/>  
+                <Button title="Score Table" onPress={() => navigation.navigate('Game')}/> 
+           </ImageBackground>
+        </ScrollView>
     );     
 }
 
 const styles = StyleSheet.create(
     {
-        container:{
+        container: {
             flex: 1,
-            backgroundColor: 'lightblue',
-        }
+            backgroundColor: 'black'
+        },
+        image: {
+            flex: 1,
+            minHeight: 1000,
+            justifyContent: "flex-start"
+        },
     }
 )
 
