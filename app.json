@@ -7,7 +7,7 @@
     "icon": "./assets/icons/nature-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icons/nature-icon.png",
+      "image": "./assets/background-mobile.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
